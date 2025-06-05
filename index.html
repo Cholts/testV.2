@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice's Wonderland Library - Classic Literature Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary-color: #2C1810;        /* Rich dark brown */
+            --secondary-color: #8B4513;      /* Saddle brown */
+            --accent-color: #DAA520;         /* Goldenrod */
+            --light-accent: #F4E4BC;        /* Cream */
+            --text-dark: #2C1810;           /* Dark brown text */
+            --text-light: #6B4423;          /* Medium brown text */
+            --background: #FEFCF7;          /* Warm white */
+            --card-background: #FFFFFF;      /* Pure white for cards */
+            --shadow: rgba(44, 24, 16, 0.1); /* Subtle brown shadow */
+            --border: #E8D5B7;              /* Light brown border */
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            font-size: 18px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 2rem; }
+        h4 { font-size: 1.5rem; }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--light-accent);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+        }
+
+        /* Main content */
+        main {
+            padding: 4rem 0;
+            min-height: 60vh;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: linear-gradient(45deg, var(--light-accent), var(--background));
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .hero h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* Book grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        /* Book cards */
+        .book-card {
+            background: var(--card-background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(44, 24, 16, 0.2);
+        }
+
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .book-card:hover .book-cover {
+            transform: scale(1.05);
+        }
+
+        .book-info {
+            padding: 2rem;
+        }
+
+        .book-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .book-info p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--accent-color), #B8860B);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Crimson Text', serif;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+            background: linear-gradient(135deg, #B8860B, var(--accent-color));
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary-color), #A0522D);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #A0522D, var(--secondary-color));
+        }
+
+        /* Book detail sections */
+        .book-detail {
+            display: none;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--card-background);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .book-detail.active {
+            display: grid;
+        }
+
+        .book-detail-cover {
+            text-align: center;
+        }
+
+        .book-detail-cover .book-cover {
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .book-detail-cover .book-cover:hover {
+            transform: scale(1.05);
+        }
+
+        .book-detail-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.8rem;
+        }
+
+        .book-actions {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--light-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--light-accent);
+            text-decoration: underline;
+        }
+
+        /* Back button */
+        .back-btn {
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .back-btn.show {
+            display: block;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .book-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .book-actions {
+                justify-content: center;
+            }
+            
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.7rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .book-info {
+                padding: 1.5rem;
+            }
+            
+            .book-cover {
+                height: 300px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" onclick="showHome()">Alice's Wonderland Library</a>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showHome()">Home</a></li>
+                        <li><a href="#" onclick="showBook('alice')">Alice's Adventures</a></li>
+                        <li><a href="#" onclick="showBook('looking-glass')">Looking-Glass</a></li>
+                        <li><a href="#" onclick="showBook('hunting-snark')">Hunting of the Snark</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Back Button -->
+            <div class="back-btn" id="backBtn">
+                <a href="#" class="btn" onclick="showHome()">← Back to Library</a>
+            </div>
+
+            <!-- Homepage Content -->
+            <div id="homepage">
+                <div class="hero">
+                    <h1>Explore the Whimsical World of Alice</h1>
+                    <p>Dive into the fantastical journeys of Alice in Wonderland and Through the Looking-Glass. A timeless classic brought
